@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Link, NavLink, Switch } from "react-router-dom";
 
 // components
 import Home from "./components/Home";
@@ -13,19 +13,26 @@ const App = () => {
     <BrowserRouter>
       <div>
         <header>
-          <Link to="/">Home</Link>
+          <NavLink to="/">Home</NavLink>
           <br />
-          <Link to="/posts">Posts</Link>
+          <NavLink to="/posts" activeStyle={{ color: "red" }} activeClassName="selected">
+            Posts
+          </NavLink>
           <br />
-          <Link to={{ pathname: "/profile", hash: "#you", search: "?profile=true" }}>Profile</Link>
+          <NavLink to={{ pathname: "/profile", hash: "#you", search: "?profile=true" }}>
+            Profile
+          </NavLink>
           <br />
           <hr />
         </header>
         <h1>MySite</h1>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/posts" component={Posts} />
-        <Route path="/posts/:id" component={PostItem} />
-        <Route path="/profile" component={Profile} />
+        <Switch>
+          <Route path="/posts/:id/:username" component={PostItem} />
+          <Route path="/posts" component={Posts} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/" exact component={Home} />
+          <Route render={Posts} />
+        </Switch>
       </div>
     </BrowserRouter>
   );
