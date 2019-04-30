@@ -22,7 +22,20 @@ class Life extends Component {
     console.log("After update");
   }
 
-  shouldComponentUpdate(nextProps, nextState) {}
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.title === "something different") {
+      return false;
+    }
+    return true;
+  }
+
+  componentWillReceiveProps() {
+    console.log("Before receiving props");
+  }
+
+  componentWillUnmount() {
+    console.log("Unmount");
+  }
 
   // 4 - render jsx
   render() {
